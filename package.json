@@ -1,0 +1,24 @@
+{
+  "name": "8tech-parcel-server",
+  "version": "1.0.0",
+  "description": "8teq parcel management server",
+  "main": "index.js",
+  "scripts": {
+    "test": "",
+    "dev": "nodemon index.js"
+  },
+  "author": "Patrick Mwangi",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "nodemon": "^2.0.12",
+    "prisma": "^2.26.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^2.26.0",
+    "bcrypt": "^5.0.1",
+    "express": "^4.17.1",
+    "joi": "^17.4.0",
+    "jsonwebtoken": "^8.5.1"
+  }
+}

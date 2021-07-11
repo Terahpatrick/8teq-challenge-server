@@ -1,0 +1,59 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id           Int            @id @default(autoincrement())
+  name         String
+  phone_number String
+  email        String         @unique
+  role         user_role_enum @default(teller)
+  password     String
+  customers    Customer[]
+
+  @@map("users")
+}
+
+model Customer {
+  id           Int      @id @default(autoincrement())
+  name         String
+  phone_number String
+  email        String   @unique
+  teller       User?    @relation(fields: [teller_id], references: [id])
+  teller_id    Int
+  address      String
+  senders      Parcel[] @relation("Sender")
+  recepients   Parcel[] @relation("Recepient")
+
+
+  @@map("customers")
+}
+
+model Parcel {
+  id           Int           @id @default(autoincrement())
+  sender       Customer      @relation("Sender", fields: [sender_id], references: [id])
+  recepient    Customer      @relation("Recepient", fields: [recepient_id], references: [id])
+  sender_id    Int
+  recepient_id Int
+  status       parcel_status @default(sent)
+  amount       Float
+  name String?
+  description  String?
+
+  @@map("parcels")
+}
+
+enum user_role_enum {
+  teller
+  admin
+}
+
+enum parcel_status {
+  sent
+  received
+}
