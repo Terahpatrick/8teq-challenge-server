@@ -44,8 +44,7 @@ exports.userController = {
     const { email, password } = req.body;
     let user = await prisma.user.findUnique({ where: { email } });
 
-    if (!user)
-      return res.status(400).json(errorResponse("Invalid email or password"));
+    if (!user) return res.status(400).json(errorResponse("User not found"));
 
     const validPassword = await bcrypt.compare(password, user.password);
 
